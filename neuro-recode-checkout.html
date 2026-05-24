@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout | Neuro Recode</title>
+<meta name="description" content="Secure checkout for the Neuro Recode Method intensive." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aubergine:#24102f;
+    --plum:#4f1d69;
+    --violet:#7517bc;
+    --orchid:#a25ae8;
+    --gold:#d8ab55;
+    --aqua:#1aaeb4;
+    --ink:#17111f;
+    --muted:#6e6177;
+    --line:#e8deef;
+    --paper:#fffaf3;
+    --soft:#f6effb;
+    --white:#ffffff;
+    --danger:#b42318;
+    --success:#157f59;
+    --shadow:0 20px 70px rgba(36,16,47,.12);
+    --font-display:"Cormorant Garamond", Georgia, serif;
+    --font-body:"Outfit", Arial, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    min-height:100vh;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at top left, rgba(216,171,85,.18), transparent 32rem),
+      linear-gradient(180deg, #fffaf3 0%, #f8f2fb 46%, #ffffff 100%);
+    font-family:var(--font-body);
+    line-height:1.5;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.22;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+
+  a{color:inherit;text-decoration:none}
+  button,input,select{font:inherit}
+  img{display:block;max-width:100%}
+
+  .page-shell{
+    position:relative;
+    z-index:1;
+    max-width:1200px;
+    margin:0 auto;
+    padding:28px 24px 56px;
+  }
+
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:8px 0 28px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+  }
+
+  .brand-mark{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--plum),var(--violet));
+    box-shadow:0 12px 30px rgba(117,23,188,.25);
+    flex:0 0 auto;
+  }
+
+  .brand-mark span{
+    width:19px;
+    height:19px;
+    border-radius:60% 10% 60% 10%;
+    background:linear-gradient(135deg,var(--gold),#fff0c7);
+    transform:rotate(45deg);
+  }
+
+  .brand-text strong{
+    display:block;
+    font-family:var(--font-display);
+    font-size:25px;
+    font-weight:700;
+    line-height:1;
+  }
+
+  .brand-text small{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+  }
+
+  .top-actions{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .support-link{
+    color:var(--plum);
+    font-weight:600;
+  }
+
+  .checkout-header{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:24px;
+    align-items:end;
+    margin:6px 0 24px;
+  }
+
+  .eyebrow{
+    margin:0 0 10px;
+    color:var(--aqua);
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+
+  h1{
+    margin:0;
+    font-family:var(--font-display);
+    font-size:clamp(38px,5vw,64px);
+    line-height:.98;
+    font-weight:700;
+  }
+
+  .header-copy{
+    margin:14px 0 0;
+    max-width:650px;
+    color:var(--muted);
+    font-size:18px;
+  }
+
+  .status-pill{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:210px;
+    padding:12px 16px;
+    border:1px solid rgba(26,174,180,.28);
+    border-radius:999px;
+    background:rgba(255,255,255,.72);
+    color:#0f6267;
+    font-size:14px;
+    font-weight:600;
+    box-shadow:0 10px 28px rgba(26,174,180,.08);
+  }
+
+  .status-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:var(--aqua);
+    box-shadow:0 0 0 5px rgba(26,174,180,.12);
+  }
+
+  .checkout-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 390px;
+    gap:24px;
+    align-items:start;
+  }
+
+  .panel,
+  .summary-panel{
+    background:rgba(255,255,255,.86);
+    border:1px solid rgba(232,222,239,.9);
+    border-radius:8px;
+    box-shadow:var(--shadow);
+  }
+
+  .panel{
+    padding:28px;
+    margin-bottom:18px;
+  }
+
+  .summary-panel{
+    position:sticky;
+    top:20px;
+    overflow:hidden;
+  }
+
+  .section-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:20px;
+  }
+
+  .section-title{
+    margin:0;
+    font-family:var(--font-display);
+    font-size:31px;
+    line-height:1.05;
+    font-weight:700;
+  }
+
+  .section-note{
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .step-badge{
+    flex:0 0 auto;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    color:var(--white);
+    background:linear-gradient(135deg,var(--plum),var(--violet));
+    font-weight:700;
+    font-size:14px;
+  }
+
+  .plan-list{
+    display:grid;
+    gap:12px;
+  }
+
+  .plan-option{
+    cursor:pointer;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:14px;
+    align-items:center;
+    padding:16px;
+    min-height:92px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--white);
+    transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+
+  .plan-option:hover{
+    transform:translateY(-1px);
+    border-color:rgba(117,23,188,.35);
+    box-shadow:0 12px 26px rgba(36,16,47,.08);
+  }
+
+  .plan-option.active{
+    border-color:var(--violet);
+    box-shadow:0 0 0 3px rgba(117,23,188,.12), 0 16px 38px rgba(36,16,47,.1);
+  }
+
+  .radio{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    border:2px solid #cbb9d7;
+    position:relative;
+  }
+
+  .active .radio{
+    border-color:var(--violet);
+  }
+
+  .active .radio::after{
+    content:"";
+    position:absolute;
+    inset:4px;
+    border-radius:50%;
+    background:var(--violet);
+  }
+
+  .plan-name{
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+  }
+
+  .plan-meta{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .price{
+    text-align:right;
+    white-space:nowrap;
+  }
+
+  .price strong{
+    display:block;
+    color:var(--aubergine);
+    font-size:22px;
+    line-height:1.1;
+  }
+
+  .price small{
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  .field-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+
+  .field{
+    display:grid;
+    gap:7px;
+  }
+
+  .field.full{grid-column:1/-1}
+
+  label{
+    color:var(--ink);
+    font-size:13px;
+    font-weight:700;
+  }
+
+  input,
+  select{
+    width:100%;
+    min-height:50px;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--white);
+    color:var(--ink);
+    outline:0;
+    transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+
+  input:focus,
+  select:focus{
+    border-color:var(--violet);
+    box-shadow:0 0 0 3px rgba(117,23,188,.12);
+  }
+
+  .payment-tabs{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
+    margin-bottom:18px;
+  }
+
+  .tab-button{
+    min-height:48px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--white);
+    color:var(--muted);
+    cursor:pointer;
+    font-weight:700;
+    transition:all .2s ease;
+  }
+
+  .tab-button.active{
+    color:var(--white);
+    border-color:var(--plum);
+    background:linear-gradient(135deg,var(--plum),var(--violet));
+  }
+
+  .pay-row{
+    display:grid;
+    grid-template-columns:1.5fr .75fr .75fr;
+    gap:14px;
+  }
+
+  .check-line{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:18px;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .check-line input{
+    width:18px;
+    min-height:18px;
+    height:18px;
+    margin-top:2px;
+    accent-color:var(--violet);
+  }
+
+  .submit-panel{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:14px;
+    margin-top:18px;
+  }
+
+  .primary-button{
+    min-height:56px;
+    border:0;
+    border-radius:8px;
+    padding:0 24px;
+    color:var(--white);
+    background:linear-gradient(135deg,var(--aubergine),var(--violet));
+    box-shadow:0 18px 35px rgba(79,29,105,.24);
+    font-weight:800;
+    cursor:pointer;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+
+  .primary-button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 22px 44px rgba(79,29,105,.3);
+  }
+
+  .secure-copy{
+    color:var(--muted);
+    font-size:13px;
+    max-width:330px;
+  }
+
+  .summary-top{
+    padding:24px;
+    color:var(--white);
+    background:linear-gradient(145deg,var(--aubergine),var(--plum) 64%,#2c6470);
+  }
+
+  .summary-top h2{
+    margin:0;
+    font-family:var(--font-display);
+    font-size:33px;
+    line-height:1.05;
+  }
+
+  .summary-top p{
+    margin:8px 0 0;
+    color:rgba(255,255,255,.75);
+    font-size:14px;
+  }
+
+  .product-strip{
+    display:grid;
+    grid-template-columns:86px 1fr;
+    gap:14px;
+    align-items:center;
+    padding:20px 24px;
+    border-bottom:1px solid var(--line);
+    background:var(--white);
+  }
+
+  .product-image{
+    aspect-ratio:1;
+    border-radius:8px;
+    overflow:hidden;
+    background:var(--soft);
+    border:1px solid var(--line);
+  }
+
+  .product-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:left center;
+  }
+
+  .product-title{
+    margin:0;
+    font-size:16px;
+    font-weight:800;
+  }
+
+  .product-meta{
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  .summary-body{
+    padding:22px 24px 24px;
+    background:rgba(255,255,255,.92);
+  }
+
+  .summary-row{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    padding:10px 0;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  .summary-row strong{
+    color:var(--ink);
+    font-weight:700;
+  }
+
+  .divider{
+    height:1px;
+    background:var(--line);
+    margin:10px 0;
+  }
+
+  .total-row{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    align-items:flex-end;
+    padding:12px 0 4px;
+  }
+
+  .total-row span{
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .total-row strong{
+    color:var(--aubergine);
+    font-size:34px;
+    line-height:1;
+  }
+
+  .coupon{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:10px;
+    margin-top:18px;
+  }
+
+  .coupon input{
+    min-height:46px;
+  }
+
+  .secondary-button{
+    min-height:46px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:0 16px;
+    background:var(--white);
+    color:var(--plum);
+    font-weight:800;
+    cursor:pointer;
+  }
+
+  .message{
+    display:none;
+    margin-top:12px;
+    padding:11px 12px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:700;
+  }
+
+  .message.show{display:block}
+  .message.success{color:var(--success);background:#eaf8f0}
+  .message.error{color:var(--danger);background:#fff1f0}
+
+  .included-list{
+    display:grid;
+    gap:10px;
+    margin-top:20px;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+  }
+
+  .included-item{
+    display:flex;
+    gap:10px;
+    color:var(--muted);
+    font-size:14px;
+  }
+
+  .included-item::before{
+    content:"";
+    flex:0 0 auto;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--gold);
+    margin-top:8px;
+  }
+
+  .trust-bar{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:18px;
+  }
+
+  .trust-item{
+    min-height:78px;
+    padding:14px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:rgba(255,255,255,.74);
+  }
+
+  .trust-item strong{
+    display:block;
+    font-size:14px;
+  }
+
+  .trust-item span{
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translate(-50%, 16px);
+    opacity:0;
+    pointer-events:none;
+    z-index:5;
+    width:min(440px, calc(100vw - 32px));
+    padding:14px 16px;
+    border-radius:8px;
+    color:var(--white);
+    background:var(--aubergine);
+    box-shadow:0 18px 45px rgba(23,17,31,.24);
+    font-weight:700;
+    transition:opacity .25s ease, transform .25s ease;
+  }
+
+  .toast.show{
+    opacity:1;
+    transform:translate(-50%, 0);
+  }
+
+  @media (max-width:980px){
+    .checkout-grid{
+      grid-template-columns:1fr;
+    }
+
+    .summary-panel{
+      position:static;
+      order:-1;
+    }
+  }
+
+  @media (max-width:720px){
+    .page-shell{
+      padding:20px 16px 38px;
+    }
+
+    .topbar,
+    .checkout-header{
+      align-items:flex-start;
+      grid-template-columns:1fr;
+      flex-direction:column;
+    }
+
+    .top-actions{
+      width:100%;
+      justify-content:space-between;
+    }
+
+    h1{
+      font-size:42px;
+    }
+
+    .panel{
+      padding:20px;
+    }
+
+    .field-grid,
+    .pay-row,
+    .trust-bar,
+    .payment-tabs{
+      grid-template-columns:1fr;
+    }
+
+    .plan-option{
+      grid-template-columns:auto 1fr;
+    }
+
+    .price{
+      grid-column:2;
+      text-align:left;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar" aria-label="Checkout header">
+      <a class="brand" href="neuro-recode-landing.html" aria-label="Neuro Recode home">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-text">
+          <strong>Neuro Recode</strong>
+          <small>Premium mindset transformation</small>
+        </span>
+      </a>
+      <div class="top-actions">
+        <span>Secure checkout</span>
+        <a class="support-link" href="mailto:hello@neurorecode.com">Need help?</a>
+      </div>
+    </header>
+
+    <section class="checkout-header" aria-labelledby="checkout-title">
+      <div>
+        <p class="eyebrow">Enrollment checkout</p>
+        <h1 id="checkout-title">Reserve your Neuro Recode seat.</h1>
+        <p class="header-copy">Complete your enrollment for the guided intensive. Your confirmation and onboarding details are prepared immediately after payment.</p>
+      </div>
+      <div class="status-pill" aria-label="Checkout security status">
+        <span class="status-dot" aria-hidden="true"></span>
+        Encrypted payment session
+      </div>
+    </section>
+
+    <div class="checkout-grid">
+      <form id="checkoutForm" novalidate>
+        <section class="panel" aria-labelledby="plan-title">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="plan-title">Choose access</h2>
+              <p class="section-note">Select the format that fits your current season.</p>
+            </div>
+            <span class="step-badge">1</span>
+          </div>
+
+          <div class="plan-list" role="radiogroup" aria-label="Neuro Recode plan">
+            <article class="plan-option active" tabindex="0" role="radio" aria-checked="true" data-plan="Intensive" data-price="295">
+              <span class="radio" aria-hidden="true"></span>
+              <div>
+                <h3 class="plan-name">Neuro Recode Intensive</h3>
+                <p class="plan-meta">Four live sessions, workbook, replay vault, and private onboarding.</p>
+              </div>
+              <div class="price">
+                <strong>$295</strong>
+                <small>single payment</small>
+              </div>
+            </article>
+
+            <article class="plan-option" tabindex="0" role="radio" aria-checked="false" data-plan="Private" data-price="780">
+              <span class="radio" aria-hidden="true"></span>
+              <div>
+                <h3 class="plan-name">Private Recode Track</h3>
+                <p class="plan-meta">Six private sessions with tailored subconscious pattern work.</p>
+              </div>
+              <div class="price">
+                <strong>$780</strong>
+                <small>single payment</small>
+              </div>
+            </article>
+
+            <article class="plan-option" tabindex="0" role="radio" aria-checked="false" data-plan="VIP" data-price="1180">
+              <span class="radio" aria-hidden="true"></span>
+              <div>
+                <h3 class="plan-name">VIP Identity Reset</h3>
+                <p class="plan-meta">Full intensive access, private sessions, priority review, and integration support.</p>
+              </div>
+              <div class="price">
+                <strong>$1,180</strong>
+                <small>single payment</small>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="details-title">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="details-title">Your details</h2>
+              <p class="section-note">Used for receipts, onboarding, and session reminders.</p>
+            </div>
+            <span class="step-badge">2</span>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input id="firstName" name="firstName" autocomplete="given-name" required />
+            </div>
+            <div class="field">
+              <label for="lastName">Last name</label>
+              <input id="lastName" name="lastName" autocomplete="family-name" required />
+            </div>
+            <div class="field full">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+            </div>
+            <div class="field">
+              <label for="country">Country</label>
+              <select id="country" name="country" autocomplete="country-name">
+                <option>United States</option>
+                <option>India</option>
+                <option>United Arab Emirates</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Australia</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="payment-title">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title" id="payment-title">Payment</h2>
+              <p class="section-note">Cards, wallets, and bank cards are supported.</p>
+            </div>
+            <span class="step-badge">3</span>
+          </div>
+
+          <div class="payment-tabs" role="tablist" aria-label="Payment method">
+            <button class="tab-button active" type="button" role="tab" aria-selected="true">Card</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false">Wallet</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false">Bank</button>
+          </div>
+
+          <div class="field-grid">
+            <div class="field full">
+              <label for="cardName">Name on card</label>
+              <input id="cardName" name="cardName" autocomplete="cc-name" required />
+            </div>
+            <div class="field full">
+              <label for="cardNumber">Card number</label>
+              <input id="cardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" maxlength="19" placeholder="0000 0000 0000 0000" required />
+            </div>
+          </div>
+
+          <div class="pay-row" style="margin-top:14px">
+            <div class="field">
+              <label for="expiry">Expiry</label>
+              <input id="expiry" name="expiry" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" required />
+            </div>
+            <div class="field">
+              <label for="cvc">CVC</label>
+              <input id="cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" maxlength="4" required />
+            </div>
+            <div class="field">
+              <label for="zip">ZIP</label>
+              <input id="zip" name="zip" autocomplete="postal-code" required />
+            </div>
+          </div>
+
+          <label class="check-line">
+            <input type="checkbox" id="terms" required />
+            <span>I agree to the enrollment terms and understand that onboarding access is delivered by email.</span>
+          </label>
+
+          <div class="submit-panel">
+            <button class="primary-button" type="submit" id="payButton">Complete checkout</button>
+            <p class="secure-copy">Your payment is encrypted. Neuro Recode never stores raw card details.</p>
+          </div>
+        </section>
+      </form>
+
+      <aside class="summary-panel" aria-labelledby="summary-title">
+        <div class="summary-top">
+          <h2 id="summary-title">Order summary</h2>
+          <p>Today you are enrolling in the guided Neuro Recode Method experience.</p>
+        </div>
+
+        <div class="product-strip">
+          <div class="product-image">
+            <img src="neuro-recode-preview.png" alt="Neuro Recode program preview" />
+          </div>
+          <div>
+            <h3 class="product-title" id="summaryPlan">Neuro Recode Intensive</h3>
+            <p class="product-meta">Digital access plus live facilitation</p>
+          </div>
+        </div>
+
+        <div class="summary-body">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <strong id="subtotal">$295</strong>
+          </div>
+          <div class="summary-row">
+            <span>Enrollment materials</span>
+            <strong>Included</strong>
+          </div>
+          <div class="summary-row">
+            <span>Discount</span>
+            <strong id="discount">$0</strong>
+          </div>
+          <div class="divider"></div>
+          <div class="total-row">
+            <span>Total due today</span>
+            <strong id="total">$295</strong>
+          </div>
+
+          <div class="coupon">
+            <input id="couponCode" aria-label="Coupon code" placeholder="Coupon code" />
+            <button class="secondary-button" type="button" id="applyCoupon">Apply</button>
+          </div>
+          <div class="message" id="couponMessage" role="status"></div>
+
+          <div class="included-list" aria-label="Included in enrollment">
+            <div class="included-item">Private onboarding email within minutes</div>
+            <div class="included-item">Neuro Recode workbook and session library</div>
+            <div class="included-item">7-day fit guarantee before the first live session</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="trust-bar" aria-label="Checkout assurances">
+      <div class="trust-item">
+        <strong>Encrypted checkout</strong>
+        <span>Payment details are protected in transit.</span>
+      </div>
+      <div class="trust-item">
+        <strong>Fast onboarding</strong>
+        <span>Confirmation arrives after enrollment.</span>
+      </div>
+      <div class="trust-item">
+        <strong>Human support</strong>
+        <span>Questions go directly to the program team.</span>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const state = {
+    plan: "Neuro Recode Intensive",
+    price: 295,
+    discount: 0
+  };
+
+  const money = value => "$" + Number(value).toLocaleString("en-US", {
+    maximumFractionDigits: 0
+  });
+
+  const planOptions = document.querySelectorAll(".plan-option");
+  const subtotal = document.getElementById("subtotal");
+  const discount = document.getElementById("discount");
+  const total = document.getElementById("total");
+  const summaryPlan = document.getElementById("summaryPlan");
+  const couponCode = document.getElementById("couponCode");
+  const couponMessage = document.getElementById("couponMessage");
+  const applyCoupon = document.getElementById("applyCoupon");
+  const form = document.getElementById("checkoutForm");
+  const toast = document.getElementById("toast");
+  const cardNumber = document.getElementById("cardNumber");
+  const expiry = document.getElementById("expiry");
+  const cvc = document.getElementById("cvc");
+  const tabs = document.querySelectorAll(".tab-button");
+
+  function renderTotals(){
+    const due = Math.max(state.price - state.discount, 0);
+    subtotal.textContent = money(state.price);
+    discount.textContent = state.discount ? "-" + money(state.discount) : "$0";
+    total.textContent = money(due);
+    summaryPlan.textContent = state.plan;
+  }
+
+  function selectPlan(option){
+    planOptions.forEach(item => {
+      item.classList.remove("active");
+      item.setAttribute("aria-checked", "false");
+    });
+    option.classList.add("active");
+    option.setAttribute("aria-checked", "true");
+    state.plan = option.querySelector(".plan-name").textContent;
+    state.price = Number(option.dataset.price);
+    state.discount = 0;
+    couponCode.value = "";
+    hideCouponMessage();
+    renderTotals();
+  }
+
+  function showCouponMessage(text, type){
+    couponMessage.textContent = text;
+    couponMessage.className = "message show " + type;
+  }
+
+  function hideCouponMessage(){
+    couponMessage.className = "message";
+    couponMessage.textContent = "";
+  }
+
+  function showToast(text){
+    toast.textContent = text;
+    toast.classList.add("show");
+    window.setTimeout(() => toast.classList.remove("show"), 3200);
+  }
+
+  planOptions.forEach(option => {
+    option.addEventListener("click", () => selectPlan(option));
+    option.addEventListener("keydown", event => {
+      if(event.key === "Enter" || event.key === " "){
+        event.preventDefault();
+        selectPlan(option);
+      }
+    });
+  });
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(item => {
+        item.classList.remove("active");
+        item.setAttribute("aria-selected", "false");
+      });
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+    });
+  });
+
+  applyCoupon.addEventListener("click", () => {
+    const code = couponCode.value.trim().toUpperCase();
+    if(!code){
+      state.discount = 0;
+      renderTotals();
+      showCouponMessage("Enter a coupon code to apply a discount.", "error");
+      return;
+    }
+
+    if(code === "WELCOME10"){
+      state.discount = Math.round(state.price * 0.1);
+      renderTotals();
+      showCouponMessage("WELCOME10 applied. Your order total has been updated.", "success");
+      return;
+    }
+
+    state.discount = 0;
+    renderTotals();
+    showCouponMessage("That coupon is not valid for this enrollment.", "error");
+  });
+
+  cardNumber.addEventListener("input", event => {
+    const digits = event.target.value.replace(/\D/g, "").slice(0, 16);
+    event.target.value = digits.replace(/(.{4})/g, "$1 ").trim();
+  });
+
+  expiry.addEventListener("input", event => {
+    const digits = event.target.value.replace(/\D/g, "").slice(0, 4);
+    event.target.value = digits.length > 2 ? digits.slice(0, 2) + " / " + digits.slice(2) : digits;
+  });
+
+  cvc.addEventListener("input", event => {
+    event.target.value = event.target.value.replace(/\D/g, "").slice(0, 4);
+  });
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+
+    showToast("Checkout preview complete. Connect this form to your payment processor to accept live payments.");
+  });
+
+  renderTotals();
+</script>
+</body>
+</html>
