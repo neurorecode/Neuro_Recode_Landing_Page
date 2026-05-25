@@ -337,6 +337,14 @@
     background:var(--pure-white);
     color:var(--royal-deep-purple);
   }
+  .lead-form-message{
+    min-height:20px;
+    margin:-4px 0 0;
+    color:#ffe0d6;
+    font-size:13px;
+    font-weight:600;
+    line-height:1.35;
+  }
   .hero-card-quote{
     font-family:var(--font-display);
     font-size:30px;line-height:1.3;
@@ -1156,13 +1164,13 @@
       <a href="#work">Portfolio</a>
       <a href="#programs">Programs</a>
       <a href="#client-reviews">Voices</a>
-      <a href="#contact" class="btn btn-primary">
+      <a href="neuro-recode-checkout.html" class="btn btn-primary">
         Book a Session
         <span class="arrow">&rarr;</span>
       </a>
     </div>
     <div class="mobile-nav-actions">
-      <a href="#contact" class="btn btn-primary mobile-book">BOOK A SESSION</a>
+      <a href="neuro-recode-checkout.html" class="btn btn-primary mobile-book">BOOK A SESSION</a>
       <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
         <span></span>
         <span></span>
@@ -1221,7 +1229,7 @@
         into a life of clarity, purpose, and unmistakable impact.
       </p>
       <div class="hero-ctas">
-        <a href="#contact" class="btn btn-primary">
+        <a href="neuro-recode-checkout.html" class="btn btn-primary">
           BOOK A SESSION
           <span class="arrow">&rarr;</span>
         </a>
@@ -1260,6 +1268,7 @@
               BOOK A SESSION
               <span class="arrow">&rarr;</span>
             </button>
+            <p class="lead-form-message" id="lead-form-message" aria-live="polite"></p>
           </form>
         </div>
       </div>
@@ -1623,7 +1632,7 @@
           Applications are reviewed personally. If we're a fit, you'll hear
           from us within 48 hours with next steps.
         </p>
-        <a href="#" class="btn btn-gold">
+        <a href="neuro-recode-checkout.html" class="btn btn-gold">
           Apply for a Private Session
           <span class="arrow">&rarr;</span>
         </a>
@@ -1746,6 +1755,33 @@
       history.pushState(null, '', '#client-reviews');
     });
   });
+
+  // Lead form checkout redirect
+  const leadForm = document.getElementById('lead-form');
+  const leadFormMessage = document.getElementById('lead-form-message');
+
+  if (leadForm && leadFormMessage) {
+    leadForm.addEventListener('submit', event => {
+      event.preventDefault();
+
+      if (!leadForm.checkValidity()) {
+        leadFormMessage.textContent = 'Please fill the details first in form.';
+        leadForm.reportValidity();
+        return;
+      }
+
+      leadFormMessage.textContent = '';
+      window.location.href = 'neuro-recode-checkout.html';
+    });
+
+    leadForm.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', () => {
+        if (leadForm.checkValidity()) {
+          leadFormMessage.textContent = '';
+        }
+      });
+    });
+  }
 
   // Hero countdown badge
   const countdownParts = {

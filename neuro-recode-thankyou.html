@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thank You | Neuro Recode</title>
+<meta name="description" content="Thank you for booking your Neuro Recode consultation. Continue to WhatsApp for confirmation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aubergine:#24102f;
+    --plum:#4f1d69;
+    --violet:#7517bc;
+    --teal:#0f8f8f;
+    --gold:#d8ab55;
+    --ink:#17111f;
+    --muted:#6d6274;
+    --line:#eadfed;
+    --white:#ffffff;
+    --whatsapp:#25d366;
+    --shadow:0 24px 80px rgba(36,16,47,.14);
+    --font-display:"Cormorant Garamond", Georgia, serif;
+    --font-body:"Outfit", Arial, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    color:var(--ink);
+    background:linear-gradient(135deg, #fffaf3 0%, #f8f4fa 52%, #eefaf9 100%);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.18;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+
+  a{color:inherit;text-decoration:none}
+
+  .page-shell{
+    position:relative;
+    z-index:1;
+    min-height:100vh;
+    max-width:1120px;
+    margin:0 auto;
+    padding:28px 24px 42px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding-bottom:32px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+  }
+
+  .brand-mark{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--aubergine),var(--violet));
+    box-shadow:0 12px 30px rgba(117,23,188,.22);
+    flex:0 0 auto;
+  }
+
+  .brand-mark span{
+    width:19px;
+    height:19px;
+    border-radius:60% 10% 60% 10%;
+    background:linear-gradient(135deg,var(--gold),#fff0c7);
+    transform:rotate(45deg);
+  }
+
+  .brand-text strong{
+    display:block;
+    font-family:var(--font-display);
+    font-size:25px;
+    font-weight:700;
+    line-height:1;
+  }
+
+  .brand-text small{
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  .home-link{
+    color:var(--plum);
+    font-size:14px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+
+  .thankyou-wrap{
+    flex:1;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 360px;
+    gap:26px;
+    align-items:center;
+  }
+
+  .thankyou-panel,
+  .next-panel{
+    border:1px solid rgba(234,223,237,.92);
+    border-radius:8px;
+    background:rgba(255,255,255,.88);
+    box-shadow:var(--shadow);
+  }
+
+  .thankyou-panel{
+    padding:48px;
+  }
+
+  .status-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:24px;
+    padding:10px 14px;
+    border:1px solid rgba(15,143,143,.18);
+    border-radius:999px;
+    background:rgba(238,250,249,.86);
+    color:#087372;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+  }
+
+  .check-mark{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:var(--teal);
+    color:var(--white);
+    font-size:14px;
+    line-height:1;
+  }
+
+  h1{
+    margin:0;
+    font-family:var(--font-display);
+    font-size:clamp(44px,6vw,76px);
+    line-height:.95;
+    color:var(--aubergine);
+  }
+
+  .lead{
+    max-width:680px;
+    margin:22px 0 0;
+    color:var(--muted);
+    font-size:19px;
+  }
+
+  .action-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:34px;
+  }
+
+  .primary-button,
+  .secondary-button{
+    min-height:52px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    border-radius:999px;
+    font-weight:800;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+
+  .primary-button{
+    padding:0 24px;
+    color:#062513;
+    background:var(--whatsapp);
+    box-shadow:0 16px 38px rgba(37,211,102,.26);
+  }
+
+  .secondary-button{
+    padding:0 22px;
+    border:1px solid rgba(36,16,47,.16);
+    color:var(--aubergine);
+    background:rgba(255,255,255,.78);
+  }
+
+  .primary-button:hover,
+  .secondary-button:hover{
+    transform:translateY(-2px);
+  }
+
+  .button-icon{
+    width:22px;
+    height:22px;
+    display:inline-grid;
+    place-items:center;
+    border-radius:50%;
+    background:rgba(255,255,255,.62);
+    font-size:13px;
+    line-height:1;
+  }
+
+  .microcopy{
+    margin:18px 0 0;
+    color:#796f82;
+    font-size:14px;
+  }
+
+  .next-panel{
+    padding:30px;
+  }
+
+  .next-panel h2{
+    margin:0;
+    font-family:var(--font-display);
+    font-size:36px;
+    line-height:1;
+    color:var(--aubergine);
+  }
+
+  .step-list{
+    display:grid;
+    gap:14px;
+    margin:24px 0 0;
+    padding:0;
+    list-style:none;
+  }
+
+  .step-list li{
+    display:grid;
+    grid-template-columns:34px minmax(0,1fr);
+    gap:12px;
+    color:#3f3449;
+  }
+
+  .step-number{
+    width:34px;
+    height:34px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:#eefafa;
+    color:#087372;
+    font-weight:800;
+  }
+
+  @media (max-width:900px){
+    .thankyou-wrap{
+      grid-template-columns:1fr;
+    }
+
+    .thankyou-panel{
+      padding:36px 28px;
+    }
+  }
+
+  @media (max-width:620px){
+    .page-shell{
+      padding:22px 16px 32px;
+    }
+
+    .topbar{
+      align-items:flex-start;
+      padding-bottom:22px;
+    }
+
+    .thankyou-panel,
+    .next-panel{
+      padding:26px 20px;
+    }
+
+    .action-row{
+      flex-direction:column;
+    }
+
+    .primary-button,
+    .secondary-button{
+      width:100%;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="neuro-recode-landing.html" aria-label="Neuro Recode home">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-text">
+          <strong>Neuro Recode</strong>
+          <small>Consultation Booking</small>
+        </span>
+      </a>
+      <a class="home-link" href="neuro-recode-landing.html">Back to home</a>
+    </header>
+
+    <section class="thankyou-wrap" aria-labelledby="thankyou-title">
+      <div class="thankyou-panel">
+        <div class="status-pill">
+          <span class="check-mark" aria-hidden="true">✓</span>
+          Booking Request Received
+        </div>
+
+        <h1 id="thankyou-title">Thank you for booking your consultation.</h1>
+        <p class="lead">
+          Your consultation request has been received. Continue on WhatsApp so the Neuro Recode team can confirm your slot and share the next steps.
+        </p>
+
+        <div class="action-row">
+          <a class="primary-button" id="whatsappLink" href="#" target="_blank" rel="noopener">
+            <span class="button-icon" aria-hidden="true">›</span>
+            Continue on WhatsApp
+          </a>
+          <a class="secondary-button" href="neuro-recode-landing.html">Return to website</a>
+        </div>
+
+        <p class="microcopy">
+          WhatsApp opens with a pre-filled message. Send it to confirm your consultation booking.
+        </p>
+      </div>
+
+      <aside class="next-panel" aria-label="Next steps">
+        <h2>Next steps</h2>
+        <ul class="step-list">
+          <li>
+            <span class="step-number">1</span>
+            <span>Send the WhatsApp confirmation message.</span>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <span>The team verifies your booking details.</span>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <span>You receive the consultation slot and preparation notes.</span>
+          </li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+<script>
+  const whatsappNumber = "";
+  const whatsappMessage = "Hi Neuro Recode, I have booked a consultation and would like to confirm my slot.";
+
+  const whatsappUrl = whatsappNumber
+    ? "https://wa.me/" + whatsappNumber.replace(/\D/g, "") + "?text=" + encodeURIComponent(whatsappMessage)
+    : "https://wa.me/?text=" + encodeURIComponent(whatsappMessage);
+
+  document.getElementById("whatsappLink").setAttribute("href", whatsappUrl);
+</script>
+</body>
+</html>
