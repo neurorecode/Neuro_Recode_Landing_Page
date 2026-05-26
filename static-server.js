@@ -19,8 +19,9 @@ const types = {
 
 const server = http.createServer((req, res) => {
   const requestPath = decodeURIComponent(new URL(req.url, `http://${host}:${port}`).pathname);
-  const safePath = path.normalize(requestPath).replace(/^(\.\.[/\\])+/, "");
-  const filePath = path.join(root, safePath === "/" ? "neuro-recode-landing.html" : safePath);
+  const routePath = requestPath === "/" ? "/neuro-recode-landing.html" : requestPath;
+  const safePath = path.normalize(routePath).replace(/^[/\\]+/, "").replace(/^(\.\.[/\\])+/, "");
+  const filePath = path.resolve(root, safePath);
 
   if (!filePath.startsWith(root)) {
     res.writeHead(403);
